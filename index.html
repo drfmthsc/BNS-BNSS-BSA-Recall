@@ -134,15 +134,23 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   @media (max-width:520px){.brand h1{font-size:24px}.concept{font-size:25px}.quiz-q{font-size:21px}.rate{grid-template-columns:repeat(2,1fr)}.mastery{text-align:left}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.card.revealed .strike-line{transform:scaleX(1)}.card.revealed .stamp{opacity:.92;transform:rotate(-11deg) scale(1)}}
+  .credit{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.03em;color:var(--gold);margin:10px 0 0;line-height:1.5}
+  .site-credit{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);text-align:center}
+  .site-credit .who{font-family:"Fraunces",serif;font-size:15px;color:#DCE6EC;font-weight:600}
+  .site-credit .role{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.03em;margin-top:5px;line-height:1.5}
+  .site-credit .src{font-family:"IBM Plex Mono",monospace;font-size:9.5px;color:var(--muted-2);letter-spacing:.02em;margin-top:10px;line-height:1.5}
+  #watermark{position:fixed;inset:0;z-index:9;pointer-events:none;background-repeat:repeat;opacity:.06}
 </style>
 </head>
 <body>
+<div id="watermark"></div>
 <div class="wrap">
   <header>
     <div class="brand">
       <p class="eyebrow">Medico-Legal Recall · CBME / FMT</p>
       <h1><span class="strike">IPC</span> <span class="to">→</span> BNS · BNSS · BSA</h1>
-      <p>119 sections mapped from the Biswas synopsis, with subparts and the provision on every card. Grouped by the numbers a forensic viva confuses.</p>
+      <p>119 sections cross-mapping IPC/CrPC/IEA to BNS/BNSS/BSA, with subparts and the provision on every card. Grouped by the numbers a forensic viva confuses.</p>
+      <p class="credit">Dr Harvinder Singh Chhabra · Assistant Professor · Himalayan Institute of Medical Sciences, SRHU, Dehradun</p>
     </div>
     <div class="mastery">
       <div class="pct" id="pct">0%</div>
@@ -193,6 +201,11 @@
       </div>
     </div>
   </div>
+  <footer class="site-credit">
+    <div class="who">Dr Harvinder Singh Chhabra</div>
+    <div class="role">Assistant Professor · Himalayan Institute of Medical Sciences, SRHU, Dehradun</div>
+    <div class="src">Sources: official bare Acts — indiacode.nic.in. Provisions are study aids; verify against the current Act.</div>
+  </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -207,7 +220,7 @@
 const FEEDBACK_ENDPOINT = "https://script.google.com/macros/s/AKfycbxDQ2H_okZDtbmZa5jZ8s1hQdMOKi__tyNZUR-0zgCzMCXBvARZMNIhTGg8Ri80TUmJ/exec";
 const FEEDBACK_EMAIL    = "";   // e.g. "you@example.com"  (optional fallback)
 
-/* ===== DECK — mapped from Dr Gautam Biswas synopsis (BNS/BNSS/BSA, in force 1 Jul 2024).
+/* ===== DECK — IPC/CrPC/IEA to BNS/BNSS/BSA (in force 1 Jul 2024).
    Provisions are paraphrased summaries + punishment; confirm exact wording in the official Act. ===== */
 const DECK = [
   // ---------- DEFINITIONS (BNS) ----------
@@ -550,6 +563,14 @@ fbRefreshCount();
   if(FEEDBACK_ENDPOINT){ el.className="fb-status on"; el.textContent="✓ Connected — feedback is sent to your Sheet."; }
   else if(FEEDBACK_EMAIL){ el.className="fb-status on"; el.textContent="✓ Feedback opens a pre-filled email to you."; }
   else { el.className="fb-status off"; el.textContent="Not connected — notes are saved locally. Add your Apps Script URL in SETTINGS (top of the code) to collect them centrally."; }
+})();
+/* watermark */
+(function(){
+  var wm=document.getElementById("watermark"); if(!wm) return;
+  var name="Dr Harvinder Singh Chhabra";
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="520" height="300">'
+    +'<text x="260" y="150" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30 260 150)" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#14232c">'+name+'</text></svg>';
+  wm.style.backgroundImage="url('data:image/svg+xml,"+encodeURIComponent(svg)+"')";
 })();
 </script>
 </body>
